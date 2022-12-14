@@ -87,23 +87,31 @@ var finances = [
 ['Feb-2017', 671099]
 ];
 
+let totalMonths; //variable to store total number of months
+let totalProfits; //variable to store total profits
+let avgChangePL; //variable to store average change in P and L
+let incProfits; //variable to store greatest increase in profits
+let incProfitsMonYear // variable to store month and year with greatest increase in profits
+let decProfits; //variable to store greatest decrease in profits
+let decProfitsMonYear  // variable to store month and year with greatest decrease in profits
+
 
 
 //calculate total number of months in the dataset
-console.log ("Total Months ");
+console.log ("Total Months: " + totalMonths);
 
 
 //net total amount of profit and losses over the entire period
-console.log ("Total $");
+console.log ("Total: $" + totalProfits);
 
 
 // average of the changes in profit/loss over the entire period
-console.log ("Average Change $");
+console.log ("Average Change: $ " + avgChangePL);
 
 
 //greatest increase in profits (date and amount) over entire period
-console.log ("Greatest Increase in Profits:");
+console.log ("Greatest Increase in Profits: " + incProfitsMonYear +" ($" + incProfits +")");
 
 
 //greatest decrease in losses (date and amount) over entire period
-console.log ("Greatest Decrease in Profits:");
+console.log ("Greatest Decrease in Profits: " + decProfitsMonYear +" ($" + decProfits + ")");
