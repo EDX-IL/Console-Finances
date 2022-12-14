@@ -86,3 +86,24 @@ var finances = [
 ['Jan-2017', 138230],
 ['Feb-2017', 671099]
 ];
+
+
+
+//calculate total number of months in the dataset
+console.log ("Total Months ");
+
+
+//net total amount of profit and losses over the entire period
+console.log ("Total $");
+
+
+// average of the changes in profit/loss over the entire period
+console.log ("Average Change $");
+
+
+//greatest increase in profits (date and amount) over entire period
+console.log ("Greatest Increase in Profits:");
+
+
+//greatest decrease in losses (date and amount) over entire period
+console.log ("Greatest Decrease in Profits:");
