@@ -143,7 +143,7 @@ decProfitsMonYear ="not calc'd"; //initialize date of greatest decrease in profi
     //tmpPnL is used to store the profit/loss between i (this month) and the i+1 (next month). It is calculated with each iteration once.
     let tmpPnL = finances[i+1][1]-finances [i][1]  ;
     
-    console.log ("i=" + i +" " + "tmpPnL:"+tmpPnL + "  incProfits:" + incProfits + "   sumChangePnL:"+   sumChangePnL);
+ //   console.log ("i=" + i +" " + "tmpPnL:"+tmpPnL + "  incProfits:" + incProfits + "   sumChangePnL:"+   sumChangePnL);
 
     if (tmpPnL >0 ) //Increase in Profits
         {         
@@ -157,7 +157,7 @@ decProfitsMonYear ="not calc'd"; //initialize date of greatest decrease in profi
                     incProfitsMonYear = finances[i+1][0]; //update the date when greatest increase in profits occurred
                    
             }
-            console.log ("tmpPnL:"+tmpPnL + "  incProfits:" + incProfits + "   sumChangePnL:"+   sumChangePnL +  "    MonYear:"+ finances[i+1][0])
+          //  console.log ("tmpPnL:"+tmpPnL + "  incProfits:" + incProfits + "   sumChangePnL:"+   sumChangePnL +  "    MonYear:"+ finances[i+1][0])
             
         }   
     else //Decrease in Profits
@@ -175,7 +175,7 @@ decProfitsMonYear ="not calc'd"; //initialize date of greatest decrease in profi
 
 
             }
-            console.log ("tmpPnL:"+tmpPnL + "  decProfits:" + decProfits + "   sumChangePnL:"+   sumChangePnL + "    MonYear:"+ finances[i+1][0]);
+           // console.log ("tmpPnL:"+tmpPnL + "  decProfits:" + decProfits + "   sumChangePnL:"+   sumChangePnL + "    MonYear:"+ finances[i+1][0]);
         }  
         
 
