@@ -98,11 +98,17 @@ let decProfitsMonYear  // variable to store month and year with greatest decreas
 
 
 //calculate total number of months in the dataset
+totalMonths = finances.length;
 console.log ("Total Months: " + totalMonths);
 
 
 //net total amount of profit and losses over the entire period
-console.log ("Total: $" + totalProfits);
+totalProfits = 0; //initialize totalProfits at 0
+// for each line in the area, look at the 2nd column and add to totalProfits
+for (let i = 0; i < totalMonths; i++) {
+       totalProfits += finances[i][1];
+}
+console.log ("Total Profit: $" + totalProfits);
 
 
 // average of the changes in profit/loss over the entire period
@@ -110,8 +116,36 @@ console.log ("Average Change: $ " + avgChangePL);
 
 
 //greatest increase in profits (date and amount) over entire period
-console.log ("Greatest Increase in Profits: " + incProfitsMonYear +" ($" + incProfits +")");
+incProfits = 0; //initialize greatest increase in profits to 0
+incProfitsMonYear = "not calc'd" //initialize the month and year when profit made
+
+decProfits = 0; //initialize greatest decrease in profits to 0 
+decProfitsMonYear ="not calc'd"; //initialize date of greatest decrease in profits
 
 
-//greatest decrease in losses (date and amount) over entire period
-console.log ("Greatest Decrease in Profits: " + decProfitsMonYear +" ($" + decProfits + ")");
+ for (let i = 0; i < totalMonths-1; i++){
+   
+    
+    tmpPnL = finances [i][1] + finances[i+1][1];
+    
+    if (tmpPnL >0 )
+        {         
+            if (tmpPnL > incProfits){
+                    incProfits = tmpPnL;
+                    incProfitsMonYear = finances[i+1][0];
+            }            
+        }
+    else 
+        {
+            if (tmpPnL < decProfits){
+                    decProfits = tmpPnL;
+                    decProfitsMonYear =  finances[i+1][0];
+
+            }
+
+        }    
+
+ }
+console.log ("Greatest Increase in Profits was " + "$" + incProfits + " in " + incProfitsMonYear );
+console.log ("Greatest Decrease in Profits was " + "$" + decProfits + " in " + decProfitsMonYear );
+
