@@ -89,12 +89,20 @@ var finances = [
 
 let totalMonths; //variable to store total number of months
 let totalProfits; //variable to store total profits
-let avgChangePL; //variable to store average change in P and L
+let sumChangePnL //sumChangePnL stores the sum of all the profit changes
+let avgChangePnL; //variable to store average change in P and L
 let incProfits; //variable to store greatest increase in profits
 let incProfitsMonYear // variable to store month and year with greatest increase in profits
 let decProfits; //variable to store greatest decrease in profits
 let decProfitsMonYear  // variable to store month and year with greatest decrease in profits
 
+// Format the profits to USD using the locale, style, and currency.
+let USDollar = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0, //removes numbers after decimal point
+
+});
 
 
 //calculate total number of months in the dataset
@@ -108,11 +116,11 @@ totalProfits = 0; //initialize totalProfits at 0
 for (let i = 0; i < totalMonths; i++) {
        totalProfits += finances[i][1];
 }
-console.log ("Total Profit: $" + totalProfits);
+console.log ("Total Profit: " + USDollar.format(totalProfits));
 
 
-// average of the changes in profit/loss over the entire period
-console.log ("Average Change: $ " + avgChangePL);
+
+sumChangePnL = 0; //initialize variable
 
 
 //greatest increase in profits (date and amount) over entire period
@@ -122,30 +130,44 @@ incProfitsMonYear = "not calc'd" //initialize the month and year when profit mad
 decProfits = 0; //initialize greatest decrease in profits to 0 
 decProfitsMonYear ="not calc'd"; //initialize date of greatest decrease in profits
 
-
- for (let i = 0; i < totalMonths-1; i++){
+ 
+ for (let i = 0; i < totalMonths-1; i++) //totalMonths is minus one because we are comparing this month and the next so there is no month to compare the last one to.
+ {
    
+    //tmpPnL is used to store the profit/loss between i (this month) and the i+1 (next month). It is calculated with each iteration once.
+    let tmpPnL = finances[i+1][1]-finances [i][1]  ;
     
-    tmpPnL = finances [i][1] + finances[i+1][1];
-    
-    if (tmpPnL >0 )
+    if (tmpPnL >0 ) //Increase in Profits
         {         
-            if (tmpPnL > incProfits){
-                    incProfits = tmpPnL;
-                    incProfitsMonYear = finances[i+1][0];
+            if (tmpPnL > incProfits) //Greater increase in profits than previously iterated/calculated
+            {
+                    
+                    sumChangePnL += tmpPnL ;// add positive number to SumChangePnl
+                    incProfits = tmpPnL; //update the greatest increase in profits variable
+                    incProfitsMonYear = finances[i+1][0]; //update the date when greatest increase in profits occurred
             }            
         }
-    else 
+    else //Decrease in Profits
         {
-            if (tmpPnL < decProfits){
-                    decProfits = tmpPnL;
-                    decProfitsMonYear =  finances[i+1][0];
+            if (tmpPnL < decProfits) //Greater Decrease in Profits than previously iterated/calculated
+            {       
+                    sumChangePnL += (tmpPnL *-1) //multiple negative change by -1 to make a positive number and add to sumChangePnl
+                    decProfits = tmpPnL; //update the greatest decrease in profits variable
+                    decProfitsMonYear =  finances[i+1][0]; //update the date when the greatest decrease in profits occurred
 
             }
 
-        }    
+        }  
+        
 
  }
-console.log ("Greatest Increase in Profits was " + "$" + incProfits + " in " + incProfitsMonYear );
-console.log ("Greatest Decrease in Profits was " + "$" + decProfits + " in " + decProfitsMonYear );
+
+// average of the changes in profit/loss over the entire period is sum of all the changes divided by the total months less one because we're comparing this month with the next
+avgChangePnL = sumChangePnL / (totalMonths -1)
+
+console.log ("Average Change in Profit/Loss: " + USDollar.format(avgChangePnL));
+console.log ("Greatest Increase in Profits was " + USDollar.format(incProfits) + " in " + incProfitsMonYear );
+console.log ("Greatest Decrease in Profits was " + USDollar.format(decProfits) + " in " + decProfitsMonYear );
+
+
 
