@@ -143,30 +143,43 @@ decProfitsMonYear ="not calc'd"; //initialize date of greatest decrease in profi
     //tmpPnL is used to store the profit/loss between i (this month) and the i+1 (next month). It is calculated with each iteration once.
     let tmpPnL = finances[i+1][1]-finances [i][1]  ;
     
+    console.log ("i=" + i +" " + "tmpPnL:"+tmpPnL + "  incProfits:" + incProfits + "   sumChangePnL:"+   sumChangePnL);
+
     if (tmpPnL >0 ) //Increase in Profits
         {         
+            sumChangePnL += tmpPnL ;// add positive number to SumChangePnl
+
             if (tmpPnL > incProfits) //Greater increase in profits than previously iterated/calculated
             {
-                    
-                    sumChangePnL += tmpPnL ;// add positive number to SumChangePnl
+                   
+                   
                     incProfits = tmpPnL; //update the greatest increase in profits variable
                     incProfitsMonYear = finances[i+1][0]; //update the date when greatest increase in profits occurred
-            }            
-        }
+                   
+            }
+            console.log ("tmpPnL:"+tmpPnL + "  incProfits:" + incProfits + "   sumChangePnL:"+   sumChangePnL +  "    MonYear:"+ finances[i+1][0])
+            
+        }   
     else //Decrease in Profits
-        {
+
+        {   
+            sumChangePnL += (tmpPnL *-1) //multiply negative change by -1 to make a positive number and add to sumChangePnl
             if (tmpPnL < decProfits) //Greater Decrease in Profits than previously iterated/calculated
-            {       
-                    sumChangePnL += (tmpPnL *-1) //multiply negative change by -1 to make a positive number and add to sumChangePnl
+            {                           
+                
+                    
+                   
                     decProfits = tmpPnL; //update the greatest decrease in profits variable
                     decProfitsMonYear =  finances[i+1][0]; //update the date when the greatest decrease in profits occurred
+                   
+
 
             }
-
+            console.log ("tmpPnL:"+tmpPnL + "  decProfits:" + decProfits + "   sumChangePnL:"+   sumChangePnL + "    MonYear:"+ finances[i+1][0]);
         }  
         
 
- }
+}
 
 // average of the changes in profit/loss over the entire period is sum of all the changes divided by the total months less one because we're comparing this month with the next
 avgChangePnL = sumChangePnL / (totalMonths -1)
