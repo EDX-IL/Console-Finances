@@ -104,12 +104,15 @@ let USDollar = new Intl.NumberFormat('en-US', {
 
 });
 
-console.log ("Financial Analysis");
-console.log ("------------------------");
 
+//console log to the end
+// console.log ("Financial Analysis");
+// console.log ("------------------------");
+
+//console log moved to the end
 //calculate total number of months in the dataset
-totalMonths = finances.length;
-console.log ("Total Months: " + totalMonths);
+ totalMonths = finances.length;
+// console.log ("Total Months: " + totalMonths);
 
 
 //net total amount of profit and losses over the entire period
@@ -144,7 +147,7 @@ decProfitsMonYear ="not calc'd"; //initialize date of greatest decrease in profi
     
  //   console.log ("i=" + i +" " + "tmpPnL:"+tmpPnL + "  incProfits:" + incProfits + "   sumChangePnL:"+   sumChangePnL);
 
-    if (tmpPnL >0 ) //Increase in Profits
+    if (tmpPnL > 0 ) //Increase in Profits
         {         
             sumChangePnL += tmpPnL ;// add positive number to SumChangePnl
 
@@ -187,6 +190,10 @@ totalProfits += finances[finances.length-1][1];
 avgChangePnL = sumChangePnL / (totalMonths -1);
 
 
+console.log ("Financial Analysis");
+console.log ("------------------------");
+
+console.log ("Total Months: " + totalMonths);
 console.log ("Total Profit: " + USDollar.format(totalProfits));
 console.log ("Average Change in Profit/Loss: " + USDollar.format(avgChangePnL));
 console.log ("Greatest Increase in Profits was " + USDollar.format(incProfits) + " in " + incProfitsMonYear );
