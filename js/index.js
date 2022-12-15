@@ -104,9 +104,13 @@ let USDollar = new Intl.NumberFormat('en-US', {
 
 });
 
+console.log ("Financial Analysis");
+console.log ("------------------------");
 
 //calculate total number of months in the dataset
 totalMonths = finances.length;
+
+
 console.log ("Total Months: " + totalMonths);
 
 
@@ -116,6 +120,8 @@ totalProfits = 0; //initialize totalProfits at 0
 for (let i = 0; i < totalMonths; i++) {
        totalProfits += finances[i][1];
 }
+
+
 console.log ("Total Profit: " + USDollar.format(totalProfits));
 
 
@@ -151,7 +157,7 @@ decProfitsMonYear ="not calc'd"; //initialize date of greatest decrease in profi
         {
             if (tmpPnL < decProfits) //Greater Decrease in Profits than previously iterated/calculated
             {       
-                    sumChangePnL += (tmpPnL *-1) //multiple negative change by -1 to make a positive number and add to sumChangePnl
+                    sumChangePnL += (tmpPnL *-1) //multiply negative change by -1 to make a positive number and add to sumChangePnl
                     decProfits = tmpPnL; //update the greatest decrease in profits variable
                     decProfitsMonYear =  finances[i+1][0]; //update the date when the greatest decrease in profits occurred
 
