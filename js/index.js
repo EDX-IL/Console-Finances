@@ -109,20 +109,17 @@ console.log ("------------------------");
 
 //calculate total number of months in the dataset
 totalMonths = finances.length;
-
-
 console.log ("Total Months: " + totalMonths);
 
 
 //net total amount of profit and losses over the entire period
 totalProfits = 0; //initialize totalProfits at 0
 // for each line in the area, look at the 2nd column and add to totalProfits
-for (let i = 0; i < totalMonths; i++) {
-       totalProfits += finances[i][1];
-}
+// This have moved into the main for loop for efficiency (see IMPORTANT below for loop)
+// for (let i = 0; i < totalMonths; i++) {
+//        totalProfits += finances[i][1];
+// }
 
-
-console.log ("Total Profit: " + USDollar.format(totalProfits));
 
 
 
@@ -138,7 +135,9 @@ decProfitsMonYear ="not calc'd"; //initialize date of greatest decrease in profi
 
  
  for (let i = 0; i < totalMonths-1; i++) //totalMonths is minus one because we are comparing this month and the next so there is no month to compare the last one to.
- {
+ {  
+    totalProfits += finances[i][1];
+    // console.log (finances[i][1])
    
     //tmpPnL is used to store the profit/loss between i (this month) and the i+1 (next month). It is calculated with each iteration once.
     let tmpPnL = finances[i+1][1]-finances [i][1]  ;
@@ -151,11 +150,9 @@ decProfitsMonYear ="not calc'd"; //initialize date of greatest decrease in profi
 
             if (tmpPnL > incProfits) //Greater increase in profits than previously iterated/calculated
             {
-                   
-                   
+                       
                     incProfits = tmpPnL; //update the greatest increase in profits variable
                     incProfitsMonYear = finances[i+1][0]; //update the date when greatest increase in profits occurred
-                   
             }
           //  console.log ("tmpPnL:"+tmpPnL + "  incProfits:" + incProfits + "   sumChangePnL:"+   sumChangePnL +  "    MonYear:"+ finances[i+1][0])
             
@@ -181,9 +178,16 @@ decProfitsMonYear ="not calc'd"; //initialize date of greatest decrease in profi
 
 }
 
-// average of the changes in profit/loss over the entire period is sum of all the changes divided by the total months less one because we're comparing this month with the next
-avgChangePnL = sumChangePnL / (totalMonths -1)
+//IMPORTANT
+//Because i doesn't get to last value in the array in the above for loop we need to add it here
+//Very janky but saves doing the for loop twice as i had above
+totalProfits += finances[finances.length-1][1];
 
+// average of the changes in profit/loss over the entire period is sum of all the changes divided by the total months less one because we're comparing this month with the next
+avgChangePnL = sumChangePnL / (totalMonths -1);
+
+
+console.log ("Total Profit: " + USDollar.format(totalProfits));
 console.log ("Average Change in Profit/Loss: " + USDollar.format(avgChangePnL));
 console.log ("Greatest Increase in Profits was " + USDollar.format(incProfits) + " in " + incProfitsMonYear );
 console.log ("Greatest Decrease in Profits was " + USDollar.format(decProfits) + " in " + decProfitsMonYear );
